@@ -451,7 +451,7 @@ function LunarSphere_VariablesLoaded()
 
 	-- Restore the original saved startup messages
 	if (not (versionOK)) or (Lunar.startupMessage) then
-		if (LunarSphereSettings.startupMessage) then
+		if (LunarSphereSettings.startupMessage and Lunar.startupMessage) then
 			_G["LSSettingsStartUpMessage"]:SetText(Lunar.startupMessage);
 		end
 		_G["LSSettingsshowStartupMessage"]:SetChecked(Lunar.showStartupMessage);

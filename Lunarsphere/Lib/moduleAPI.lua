@@ -183,7 +183,6 @@ function Lunar.Debug(text)
 	if (LunarSphereGlobal.debugModeOn == true) and (text) then
 		DEFAULT_CHAT_FRAME:AddMessage("LS Debug: |cFFFFFFFF" .. text, 0.3, 0.3, 0.7);
 	end
-
 end
 
 -- /***********************************************
@@ -499,7 +498,7 @@ function Lunar.API:GetSpellID(spellName)
 			-- Track the current rank of the spell. If we hit the rank
 			-- we're looking for, if it exists, exit now
 			rankFound = rankFound + 1;
-			if (spellRank) and (string.lower(scanRank) == spellRank) then
+			if (spellRank and scanRank and (string.lower(scanRank) == spellRank)) then
 				break;
 			end
 		else

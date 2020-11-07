@@ -2026,7 +2026,6 @@ function Lunar.Button:GetButtonData(buttonID, stance, clickType, useCached)
 end
 
 function Lunar.Button:SetButtonData(buttonID, stance, clickType, buttonType, actionType, actionName, buttonTexture, useCached)
-
 	-- Stop now if we have invalid data
 	if (not buttonID) or (not stance) or (not clickType) or (not buttonType) then
 		return nil;
@@ -3516,16 +3515,13 @@ function Lunar.Button:Assign(self, clickType, stance)
 		if (cursorType == "spell") then
 
 			-- Get the name of the spell and its texture
-			--_, spellID = GetSpellBookItemInfo(objectSpellID, objectData);
-			objectName = GetSpellBookItemName(objectID, objectData);
+			objectName, spellRank = GetSpellBookItemName(objectID, objectData);
 			objectTexture = GetSpellTexture(objectSpellID);
 			spellName = GetSpellInfo(objectSpellID);
+			spellRank = "(" .. spellRank .. ")";
 
 			-- Fix for Call Pet for hunters.
 			if (objectName ~= spellName) then
-				objectName = objectSpellID;
-			-- Fix for normal sheep polymorph
-			elseif (objectSpellID == 118) then
 				objectName = objectSpellID;
 			else
 --				if (objectName ~= nextSpellName) then
@@ -3539,10 +3535,10 @@ function Lunar.Button:Assign(self, clickType, stance)
 					end
 --				end
 				-- We don't want spell ranks on the first spell tab data or the professions tab ... these are generic
-				if (objectID <= (select(4, GetSpellTabInfo(1))) or objectSpellID >= (select(3, GetSpellTabInfo(5)))) then
+				if (objectID <= (select(4, GetSpellTabInfo(1))) or objectID >= (select(3, GetSpellTabInfo(5)))) then
 					spellRank = "";
 				end
-	--			objectName = objectName .. spellRank;
+				objectName = objectName .. spellRank;
 			end
 
 		elseif (cursorType == "companion") then
