@@ -1067,9 +1067,6 @@ function Lunar.Object.IconPlaceHolder_OnClick(self)
 			-- Fix for Call Pet for hunters.
 			if (actionName ~= spellName) then
 				actionName = updateTrueSpellID;
-			-- Fix for normal sheep polymorph
-			elseif (updateTrueSpellID == 118) then
-				objectName = updateTrueSpellID;
 			else
 --				if (actionName ~= nextSpellName) then
 --					if (string.find(spellRank, "%d")) then

@@ -495,7 +495,7 @@ function Lunar.API:GetSpellID(spellName)
 			-- Track the current rank of the spell. If we hit the rank
 			-- we're looking for, if it exists, exit now
 			rankFound = rankFound + 1;
-			if (spellRank) and (string.lower(scanRank) == spellRank) then
+			if (spellRank and scanRank and (string.lower(scanRank) == spellRank)) then
 				break;
 			end
 		else
