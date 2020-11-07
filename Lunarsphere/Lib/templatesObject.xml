@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
 
-	<EditBox name="LunarEditBox" toplevel="true" hidden="false" virtual="true" autofocus="false">
+	<EditBox name="LunarEditBox" toplevel="true" hidden="false" virtual="true" autofocus="false" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="128" y="20"/>
 		</Size>
@@ -206,7 +206,7 @@
 		</Scripts>
 	</Frame>
 
-	<Slider name="LunarHorizontalSlider" inherits="OptionsSliderTemplate" virtual="true">
+	<Slider name="LunarHorizontalSlider" inherits="OptionsSliderTemplate, BackdropTemplate" virtual="true">
 		<Layers>
 			<Layer level="ARTWORK">
 				<FontString name="$parentValue" inherits="GameFontNormal" justifyH="LEFT" text="">
@@ -222,7 +222,7 @@
 		</Layers>
 	</Slider>
 
-	<Slider name="LunarHorizontalSliderWithTextbox" inherits="OptionsSliderTemplate" virtual="true">
+	<Slider name="LunarHorizontalSliderWithTextbox" inherits="OptionsSliderTemplate, BackdropTemplate" virtual="true">
 		<Frames>
 			<EditBox name="$parentValue" inherits="LunarEditBox">
 				<Size>
@@ -262,7 +262,7 @@
 		</Scripts>
 	</Slider>
 
-	<Frame name="LunarCaption" virtual="true">
+	<Frame name="LunarCaption" virtual="true" inherits="BackdropTemplate">
 		<Layers>
 			<Layer level="ARTWORK">
 				<FontString name="$parentText" inherits="GameFontNormal" justifyH="LEFT" text="">
@@ -271,7 +271,7 @@
 		</Layers>
 	</Frame>
 
-	<Frame name="LunarCaptionSmall" virtual="true">
+	<Frame name="LunarCaptionSmall" virtual="true" inherits="BackdropTemplate">
 		<Layers>
 			<Layer level="ARTWORK">
 				<FontString name="$parentText" inherits="GameFontNormalSmall" justifyH="LEFT" text="">
@@ -280,7 +280,7 @@
 		</Layers>
 	</Frame>
 
-	<Button name="LunarColorSelector" virtual="true" enableMouse="true">
+	<Button name="LunarColorSelector" virtual="true" enableMouse="true" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="16" y="16"/>
 		</Size>
@@ -417,10 +417,10 @@
 		</Scripts>
 	</Frame>
 
-	<CheckButton name="LunarCheckButton" inherits="OptionsCheckButtonTemplate" virtual="true">
+	<CheckButton name="LunarCheckButton" inherits="OptionsCheckButtonTemplate, BackdropTemplate" virtual="true">
 	</CheckButton>
 
-	<Frame name="LunarDropDown" inherits="UIDropDownMenuTemplate" toplevel="false" hidden="false" enableMouse="true" virtual="true">
+	<Frame name="LunarDropDown" inherits="UIDropDownMenuTemplate, BackdropTemplate" toplevel="false" hidden="false" enableMouse="true" virtual="true">
 		<Anchors>
 			<Anchor point="TOPLEFT"/>
 		</Anchors>
@@ -438,5 +438,4 @@
 			</Layer>
 		</Layers>
 	</Frame>
-
 </Ui>

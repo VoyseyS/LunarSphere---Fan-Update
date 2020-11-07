@@ -26,7 +26,7 @@ if (not Lunar.API) then
 end
 
 -- Set our current version for the module (used for version checking later on)
-Lunar.API.version = 1.42;
+Lunar.API.version = 1.50;
 
 -- Set our default chat printing colors
 Lunar.API.chatRed	= 0.3;
@@ -44,12 +44,14 @@ Lunar.API.BlankFunction = function () end;
 --Lunar.Items.UpdateBagContents = Lunar.API.BlankFunction;
 
 -- Create our money tracker
-Lunar.API.moneyTracker = CreateFrame("GameTooltip", "LunarAPIMoneyTracker", UIParent);
+Lunar.API.moneyTracker = CreateFrame("GameTooltip", "LunarAPIMoneyTracker", UIParent, BackdropTemplateMixin and "BackdropTemplate");
+
 Lunar.API.moneyTracker:SetScript("OnTooltipAddMoney", function(self, arg1) Lunar.API.sellPrice = arg1 end)
 Lunar.API.sellPrice = nil;
 
 -- Create our mail event watcher
-Lunar.API.eventWatcher = CreateFrame("Frame", "LunarAPIEventWatcher", UIParent);
+Lunar.API.eventWatcher = CreateFrame("Frame", "LunarAPIEventWatcher", UIParent, BackdropTemplateMixin and "BackdropTemplate");
+
 Lunar.API.eventWatcher:SetWidth(1);
 Lunar.API.eventWatcher:SetHeight(1);
 Lunar.API.eventWatcher:EnableMouse(false);
@@ -63,7 +65,6 @@ LUNAR_ART_PATH = "Interface\\AddOns\\LunarSphere\\Art\\";
 LUNAR_IMPORT_PATH = "Interface\\AddOns\\LunarSphere\\Imports\\";
 --LUNAR_IMPORT_PATH = "Interface\\AddOns\\LunarSphereImports\\";
 
-
 -- Define a static variable for extra icons we have. 2 icons are the player
 -- portrait, 10 are the class icons, and 2 are the faction icons
 LUNAR_EXTRA_SPHERE_ICON_COUNT = 14;
@@ -71,8 +72,10 @@ LUNAR_EXTRA_SPHERE_ICON_COUNT = 14;
 -- Create our debug tooltip
 Lunar.API.debugFrameOver = _G["LSmain"];
 Lunar.API.debugTooltipTimer = 0;
-Lunar.API.debugTooltip = CreateFrame("GameTooltip", "LunarAPIDebugTooltip", UIParent, "GameTooltipTemplate");
-Lunar.API.debugTooltipUpdater = CreateFrame("Frame", "LunarAPIDebugTooltipUpdater", UIParent);
+Lunar.API.debugTooltip = CreateFrame("GameTooltip", "LunarAPIDebugTooltip", UIParent, BackdropTemplateMixin and "BackdropTemplate");
+ 
+Lunar.API.debugTooltipUpdater = CreateFrame("Frame", "LunarAPIDebugTooltipUpdater", UIParent, BackdropTemplateMixin and "BackdropTemplate");
+
 Lunar.API.debugTooltipUpdater:SetScript("OnUpdate", function(self, arg1)
 	if not (LunarSphereSettings.showDebugTooltip == true) then
 		return;
@@ -180,7 +183,6 @@ function Lunar.Debug(text)
 	if (LunarSphereGlobal.debugModeOn == true) and (text) then
 		DEFAULT_CHAT_FRAME:AddMessage("LS Debug: |cFFFFFFFF" .. text, 0.3, 0.3, 0.7);
 	end
-
 end
 
 -- /***********************************************
@@ -203,7 +205,8 @@ function Lunar.API:CreateFrame(frameType, frameName, frameParent, width, height,
 	end
 
 	-- Create a frame with the details provided
-	tempFrame = CreateFrame(frameType, frameName, frameParent,  BackdropTemplateMixin and "BackdropTemplate");
+	tempFrame = CreateFrame(frameType, frameName, frameParent, BackdropTemplateMixin and "BackdropTemplate");
+
 	tempFrame:SetWidth(width);
 	tempFrame:SetHeight(height);
 	tempFrame:EnableMouse(enableMouse);
@@ -1983,7 +1986,8 @@ function Lunar.API:Load()
 		function Lunar.API:HideExpBars(toggle, loading)
 
 		--[[	if not _G["LSHideEXP"] then
-				local frame = CreateFrame("Frame", "LSHideEXP", UIParent);
+				local frame = CreateFrame("Frame", "LSHideEXP", UIParent, BackdropTemplateMixin and "BackdropTemplate");
+
 				frame:SetPoint("Center");
 				MainMenuExpBar:SetParent(frame);
 				ReputationWatchBar:SetParent(frame);
@@ -2047,7 +2051,8 @@ function Lunar.API:Load()
 		function Lunar.API:HideMenus(toggle, loading)
 
 		--[[	if not _G["LSHideMenus"] then
-				local frame = CreateFrame("Frame", "LSHideMenus", UIParent);
+				local frame = CreateFrame("Frame", "LSHideMenus", UIParent, BackdropTemplateMixin and "BackdropTemplate");
+
 				frame:SetPoint("Center");
 				frame:SetFrameLevel(MainMenuBar:GetFrameLevel() + 1);
 				CharacterMicroButton:SetParent(frame);
@@ -2079,7 +2084,8 @@ function Lunar.API:Load()
 		function Lunar.API:HideBags(toggle, loading)
 
 		--[[	if not _G["LSHideBags"] then
-				local frame = CreateFrame("Frame", "LSHideBags", UIParent);
+				local frame = CreateFrame("Frame", "LSHideBags", UIParent, BackdropTemplateMixin and "BackdropTemplate");
+
 				frame:SetPoint("Center");
 				frame:SetFrameLevel(MainMenuBar:GetFrameLevel() + 1);
 				MainMenuBarBackpackButton:SetParent(frame);
@@ -2106,7 +2112,8 @@ function Lunar.API:Load()
 		function Lunar.API:HideBottomBar(toggle, loading)
 
 		--[[	if not _G["LSHideBottomArt"] then
-				local frame = CreateFrame("Frame", "LSHideBottomArt", UIParent);
+				local frame = CreateFrame("Frame", "LSHideBottomArt", UIParent, BackdropTemplateMixin and "BackdropTemplate");
+
 				frame:SetPoint("Center");
 				frame:SetFrameLevel(MainMenuBar:GetFrameLevel());
 				MainMenuBarTexture0:SetParent(frame);
@@ -2393,7 +2400,8 @@ function Lunar.API:Load()
 		function Lunar.API:CreateMinimapText()
 
 			-- Create our new frame, set its anchors, and make sure it doesn't have mouse input
-			Lunar.API.MinimapTextUpdater = CreateFrame("Frame", "LSMinimapTextUpdater", UIParent);
+			Lunar.API.MinimapTextUpdater = CreateFrame("Frame", "LSMinimapTextUpdater", UIParent, BackdropTemplateMixin and "BackdropTemplate");
+
 			Lunar.API.MinimapTextUpdater:Show();
 			Lunar.API.MinimapTextUpdater:SetPoint("TopLeft", MinimapZoneTextButton, "TopLeft");
 			Lunar.API.MinimapTextUpdater:SetPoint("BottomRight", MinimapZoneTextButton, "BottomRight");
