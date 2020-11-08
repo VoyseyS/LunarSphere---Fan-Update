@@ -1054,43 +1054,13 @@ function Lunar.Object.IconPlaceHolder_OnClick(self)
 		local nextSpellName, spellRank, spellName, spellID;
 
 		if (updateType == "spell") then
-
-			_, spellRank = GetSpellBookItemName(updateID, updateData);
---			nextSpellName = GetSpellBookItemName(updateID + 1, updateData);
-			spellRank = "(" .. spellRank .. ")";
-
-			--_, spellID = GetSpellBookItemInfo(updateID, updateData);
-			actionName = GetSpellBookItemName(updateID, updateData);
-			objectTexture = GetSpellTexture(updateID, updateData);
-			spellName = GetSpellInfo(updateTrueSpellID);
-
-			-- Fix for Call Pet for hunters.
-			if (actionName ~= spellName) then
-				actionName = updateTrueSpellID;
-			else
---				if (actionName ~= nextSpellName) then
---					if (string.find(spellRank, "%d")) then
---						spellRank = "";
---						actionName = Lunar.API:FixFaerie(actionName);
---					end
-					if (spellRank == "()") then
-						spellRank = "";
-						actionName = Lunar.API:FixFaerie(actionName);
-					end
---				end
-				-- We don't want spell ranks on the first spell tab or professions tab data ... these are generic
-				if (updateID <= (select(4, GetSpellTabInfo(1))) or updateID >= (select(3, GetSpellTabInfo(5)))) then
-					spellRank = "";
-				end
-				actionName = actionName .. spellRank;
-			end
-
+			actionName, objectTexture = Lunar.Button:GetSpellActionData(updateTrueSpellID, updateID);
 		elseif (updateType == "battlepet") then
 
 			-- Set the name of the spell and its texture
 			updateType = "spell";
---			actionName, objectTexture = select(3, GetCompanionInfo(updateData, updateID));
---			actionName, objectTexture = select(11, C_PetJournal.GetPetInfoByPetID(updateID));
+			-- actionName, objectTexture = select(3, GetCompanionInfo(updateData, updateID));
+			-- actionName, objectTexture = select(11, C_PetJournal.GetPetInfoByPetID(updateID));
 			_, _, _, _, _, _, _, actionName, objectTexture, _, displayID = C_PetJournal.GetPetInfoByPetID(updateID);
 
 		elseif (updateType == "mount") then
@@ -1103,24 +1073,24 @@ function Lunar.Object.IconPlaceHolder_OnClick(self)
 
 		elseif (updateType == "item") then
 			actionName, _, _, _, _, objectType, _, _, _, objectTexture = GetItemInfo(updateID);
--- NEW code for item names (item link for weapons/armor, to remember their "of the bear" and other animal
--- modifiers, all other items is JUST the item ID)
+			-- NEW code for item names (item link for weapons/armor, to remember their "of the bear" and other animal
+			-- modifiers, all other items is JUST the item ID)
 			if (objectType == LunarSphereGlobal.searchData.armor) or (objectType == LunarSphereGlobal.searchData.weapon) then
 				-- Grab the item link and secure only the parts that we need for the item
 				actionName = select(3, string.find(updateData, "^|c%x+|H(.+)|h%[.+%]"));
 			else
 				actionName = "item:" .. Lunar.API:GetItemID(updateData);
 			end
---[[
-			actionName = select(3, string.find(updateData, "^|c%x+|H(.+)|h%[.+%]"));
-			if IsConsumableItem(actionName) then
-				local uniqueID = select(10, string.find(actionName, "^item:(%d+):(%d+):(%d+):(%d+):(%d+):(%d+):(%-?%d+):(%-?%d+)"));
-				if (uniqueID) and (uniqueID ~= "0")  then
-					actionName = string.gsub(actionName, ":-" .. uniqueID, "");
-					actionName = string.gsub(actionName, ":" .. uniqueID, "");
-				end
-			end
---]]
+			--[[
+						actionName = select(3, string.find(updateData, "^|c%x+|H(.+)|h%[.+%]"));
+						if IsConsumableItem(actionName) then
+							local uniqueID = select(10, string.find(actionName, "^item:(%d+):(%d+):(%d+):(%d+):(%d+):(%d+):(%-?%d+):(%-?%d+)"));
+							if (uniqueID) and (uniqueID ~= "0")  then
+								actionName = string.gsub(actionName, ":-" .. uniqueID, "");
+								actionName = string.gsub(actionName, ":" .. uniqueID, "");
+							end
+						end
+			--]]
 		elseif (updateType == "macro") then
 			actionName, objectTexture = GetMacroInfo(Lunar.Settings["updateID" .. clickType]);
 		elseif (updateType == "equipmentset") then
@@ -1134,10 +1104,10 @@ function Lunar.Object.IconPlaceHolder_OnClick(self)
 		if (buttonType ~= _G["LSSettings" .. objectName .. "Type" .. clickType].selectedValue) then
 			if (buttonType == 133) then
 				UIDropDownMenu_SetText(_G["LSSettings" .. objectName .. "Type" .. clickType], Lunar.Locale["BUTTON_INVENTORY4"], _G["LSSettings" .. objectName .. "Type" .. clickType]);
---				UIDropDownMenu_SetSelectedName(_G["LSSettings" .. objectName .. "Type" .. clickType], Lunar.Locale["BUTTON_INVENTORY4"]);
+				-- UIDropDownMenu_SetSelectedName(_G["LSSettings" .. objectName .. "Type" .. clickType], Lunar.Locale["BUTTON_INVENTORY4"]);
 			else
 				UIDropDownMenu_SetText(_G["LSSettings" .. objectName .. "Type" .. clickType], Lunar.Object.dropdownData["Button_Type"][buttonType + 1][1], _G["LSSettings" .. objectName .. "Type" .. clickType]);
---				UIDropDownMenu_SetSelectedName(_G["LSSettings" .. objectName .. "Type" .. clickType], Lunar.Object.dropdownData["Button_Type"][buttonType + 1][1]);
+				-- UIDropDownMenu_SetSelectedName(_G["LSSettings" .. objectName .. "Type" .. clickType], Lunar.Object.dropdownData["Button_Type"][buttonType + 1][1]);
 			end
 			_G["LSSettings" .. objectName .. "Type" .. clickType].selectedValue = buttonType;
 		end
