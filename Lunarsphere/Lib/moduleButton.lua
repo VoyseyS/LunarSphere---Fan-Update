@@ -2033,7 +2033,7 @@ function Lunar.Button:SetButtonData(buttonID, stance, clickType, buttonType, act
 	end
 
 	-- Assign the actionType and actionName
-	if (actionType) then
+	if (actionType and actionName) then
 		Lunar.Button:SetData(buttonID, stance, clickType, "actionData", actionType, actionName, useCached);
 	end
 
@@ -3322,6 +3322,19 @@ function Lunar.Button:ConvertToMenu(self, clickType)
 	end
 end
 
+function Lunar.Button:GetSpellActionData(spellID, slotIndex)
+	spellName = GetSpellInfo(spellID);
+	_, spellSubName = GetSpellBookItemName(slotIndex, "spell");
+	spellTexture = GetSpellTexture(spellID);
+
+	if (spellSubName and (spellSubName ~= "")) then
+		spellSubName = "(" .. spellSubName .. ")";
+		spellName = spellName .. spellSubName;
+	end
+
+	return spellName, spellTexture;
+end
+
 -- /***********************************************
 --  * Assign
 --  * ========================
@@ -3332,7 +3345,6 @@ end
 --  * Returns: none
 --  *********************
 function Lunar.Button:Assign(self, clickType, stance)
-
 	
 	-- Create our locals and store the data that's in the player's cursor
 	local cursorType, objectID, objectData, objectSpellID = GetCursorInfo();
@@ -3354,12 +3366,6 @@ function Lunar.Button:Assign(self, clickType, stance)
 	--9/12 Croq - removed in favor of GetMountInfoByID
 	if (cursorType == "companion") then
 		objectID, objectData = select(3, GetCompanionInfo(objectData, objectID));
-	end
-
-	if (cursorType == "spell") then
---		_, spellName = GetSpellBookItemName( objectID, objectData );
---		nextSpellName = GetSpellBookItemName( objectID + 1, objectData );
---		spellRank = "(" .. spellRank .. ")";
 	end
 
 	-- Croq Modified, mounts are now pulled from the Journal
@@ -3405,7 +3411,7 @@ function Lunar.Button:Assign(self, clickType, stance)
 	-- We assign the first spell in the flyout or just the flyout spell (and force a flyout to
 	-- appear on our sphere?
 	if (cursorType == "flyout") then
---		secondCursorType = "spell"
+		-- secondCursorType = "spell"
 		ClearCursor();
 		Lunar.Button.updateType = nil;
 		Lunar.Button.updateData = nil;
@@ -3479,10 +3485,10 @@ function Lunar.Button:Assign(self, clickType, stance)
 
 		-- Reset the rest of the button's data
 		LunarSphereSettings.buttonData[buttonID].empty = true;
---		LunarSphereSettings.buttonData[buttonID].parent = nil;
---		LunarSphereSettings.buttonData[buttonID].stateID = 0;
---		LunarSphereSettings.buttonData[buttonID].visibilityRule = nil;
---		LunarSphereSettings.buttonData[buttonID].child = false;
+		-- LunarSphereSettings.buttonData[buttonID].parent = nil;
+		-- LunarSphereSettings.buttonData[buttonID].stateID = 0;
+		-- LunarSphereSettings.buttonData[buttonID].visibilityRule = nil;
+		-- LunarSphereSettings.buttonData[buttonID].child = false;
 
 		--LunarSphereSettings.buttonData[buttonID]["buttonType" .. clickType] = nil;
 		--LunarSphereSettings.buttonData[buttonID]["texture" .. clickType] = nil;
@@ -3492,15 +3498,15 @@ function Lunar.Button:Assign(self, clickType, stance)
 		-- from the button, wipe the menu completely
 		if (LunarSphereSettings.buttonData[buttonID].isMenu == true) then
 			Lunar.Button:SetupAsMenu(self, clickType, false)
---			Lunar.Button:SetButtonType(buttonID, stance, clickType, 0);
---			LunarSphereSettings.buttonData[buttonID]["buttonType" .. clickType] = nil;
+			-- Lunar.Button:SetButtonType(buttonID, stance, clickType, 0);
+			-- LunarSphereSettings.buttonData[buttonID]["buttonType" .. clickType] = nil;
 			Lunar.Button:MenuDestroyCheck(buttonID)
 		end
 
 		-- Set our button type based upon the action we assign
 		if ((cursorType == "spell") or (cursorType == "item") or (cursorType == "macro") or (cursorType == "companion") or (cursorType == "equipmentset") or (cursorType == "flyout") or (cursorType == "mount")) then
 			buttonType = 1;
---			LunarSphereSettings.buttonData[buttonID]["buttonType" .. clickType] = 1;
+			-- LunarSphereSettings.buttonData[buttonID]["buttonType" .. clickType] = 1;
 		end
 
 		if ((LunarSphereSettings.debugSpellAdd == true) and (Lunar.Button.debugTexture ~= nil )) then
@@ -3509,34 +3515,7 @@ function Lunar.Button:Assign(self, clickType, stance)
 
 		-- If it was a spell drag ...
 		if (cursorType == "spell") then
-
-			-- Get the name of the spell and its texture
-			objectName, spellRank = GetSpellBookItemName(objectID, objectData);
-			objectTexture = GetSpellTexture(objectSpellID);
-			spellName = GetSpellInfo(objectSpellID);
-			spellRank = "(" .. spellRank .. ")";
-
-			-- Fix for Call Pet for hunters.
-			if (objectName ~= spellName) then
-				objectName = objectSpellID;
-			else
---				if (objectName ~= nextSpellName) then
---					if (string.find(spellRank, "%d")) then
---						spellRank = "";
---						objectName = Lunar.API:FixFaerie(objectName);
---					end
-					if (spellRank == "()") then
-						spellRank = "";
-						objectName = Lunar.API:FixFaerie(objectName);
-					end
---				end
-				-- We don't want spell ranks on the first spell tab data or the professions tab ... these are generic
-				if (objectID <= (select(4, GetSpellTabInfo(1))) or objectID >= (select(3, GetSpellTabInfo(5)))) then
-					spellRank = "";
-				end
-				objectName = objectName .. spellRank;
-			end
-
+			objectName, objectTexture = Lunar.Button:GetSpellActionData(objectSpellID, objectID);
 		elseif (cursorType == "companion") then
 
 			-- Set the name of the spell and its texture
@@ -3570,7 +3549,7 @@ function Lunar.Button:Assign(self, clickType, stance)
 			else
 				objectName = "item:" .. Lunar.API:GetItemID(objectData);
 			end
---[[
+			--[[
 
 			-- Grab the item link and secure only the parts that we need for the item
 			objectName = select(3, string.find(objectData, "^|c%x+|H(.+)|h%[.+%]"));
@@ -3581,7 +3560,7 @@ function Lunar.Button:Assign(self, clickType, stance)
 					objectName = string.gsub(objectName, ":" .. uniqueID, "");
 				end
 			end
---]]
+			--]]
 
 			-- If the item is consumable, or can stack, or is a reagent ... we will show the
 			-- count of the item on the button
@@ -3655,12 +3634,12 @@ function Lunar.Button:Assign(self, clickType, stance)
 		self:SetAttribute("*type-S" .. stance .. clickType, cursorType)
 		cursorType = secondCursorType or cursorType;
 		self:SetAttribute("*"..cursorType .. "-S" .. stance .. clickType, objectName)
---		self:SetAttribute("*"..cursorType .. "-S" .. stance .. clickType, Lunar.API:FixFaerie(objectName))
+		-- self:SetAttribute("*"..cursorType .. "-S" .. stance .. clickType, Lunar.API:FixFaerie(objectName))
 
 
---		LunarSphereSettings.buttonData[buttonID]["actionType" .. clickType] = cursorType;
---		LunarSphereSettings.buttonData[buttonID]["actionName" .. clickType] = objectName;
---		LunarSphereSettings.buttonData[buttonID]["texture" .. clickType] = objectTexture;
+		-- LunarSphereSettings.buttonData[buttonID]["actionType" .. clickType] = cursorType;
+		-- LunarSphereSettings.buttonData[buttonID]["actionName" .. clickType] = objectName;
+		-- LunarSphereSettings.buttonData[buttonID]["texture" .. clickType] = objectTexture;
 
 		-- Make our icon fully visible
 		self:SetAlpha(1);
@@ -3679,10 +3658,10 @@ function Lunar.Button:Assign(self, clickType, stance)
 		end
 
 		-- Preserve our fade out
---		local tempFade = LunarSphereSettings.fadeOutTooltips;
---		LunarSphereSettings.fadeOutTooltips = nil;
+		-- local tempFade = LunarSphereSettings.fadeOutTooltips;
+		-- LunarSphereSettings.fadeOutTooltips = nil;
 		Lunar.Button:UpdateSpellState(self);
---		LunarSphereSettings.fadeOutTooltips = tempFade;
+		-- LunarSphereSettings.fadeOutTooltips = tempFade;
 
 	end
 end
