@@ -67,7 +67,7 @@ LUNAR_IMPORT_PATH = "Interface\\AddOns\\LunarSphere\\Imports\\";
 
 -- Define a static variable for extra icons we have. 2 icons are the player
 -- portrait, 10 are the class icons, and 2 are the faction icons
-LUNAR_EXTRA_SPHERE_ICON_COUNT = 14;
+LUNAR_EXTRA_SPHERE_ICON_COUNT = 16;
 
 -- Create our debug tooltip
 Lunar.API.debugFrameOver = _G["LSmain"];

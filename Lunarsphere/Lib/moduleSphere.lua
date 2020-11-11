@@ -62,8 +62,158 @@ LS_EVENT_ITEM = 44; -- not in yet
 LS_EVENT_FIVE = 45;
 LS_EVENT_POWERTICK = 46; -- not in yet
 
--- Create our settings table. Will be overwritten if the user has saved variables.
-LunarSphereSettings = {
+-- Additional Power Types
+LS_EVENT_FURY = 47;
+LS_EVENT_LUNAR_POWER = 48;
+LS_EVENT_INSANITY = 49;
+LS_EVENT_MAELSTROM = 50;
+
+Lunar.Sphere.defaultGaugeColorValues =
+{
+	[LS_EVENT_FIVE] = -- 45
+	{
+		r = 1.00;
+		g = 1.00;
+		b = 1.00;
+	};
+	[LS_EVENT_HEALTH] = -- 10
+	{
+		r = 0.00;
+		g = 1.00;
+		b = 0.00;
+	};
+	[LS_EVENT_POWER] = -- 11
+	{
+		r = 0.50;
+		g = 0.00;
+		b = 0.70;
+	};
+	[LS_EVENT_EXP] = -- 40
+	{
+		r = 0.70;
+		g = 0.00;
+		b = 0.70;
+	};
+	[LS_EVENT_REP] = -- 41
+	{
+		r = 0.00;
+		g = 0.70;
+		b = 0.70;
+	};
+	[LS_EVENT_EXTRA_POWER] = -- 18
+	{
+		r = 0.85;
+		g = 0.00;
+		b = 0.85;
+	};
+	[LS_EVENT_P_EXP] = -- 32
+	{
+		r = 0.60;
+		g = 0.00;
+		b = 0.60;
+	};
+	[LS_EVENT_T_HEALTH] = -- 20
+	{
+		r = 0.00;
+		g = 1.00;
+		b = 0.00;
+	};
+	[LS_EVENT_T_POWER] = -- 21
+	{
+		r = 0.50;
+		g = 0.00;
+		b = 0.70;
+	};
+	[LS_EVENT_MANA] = -- 14
+	{
+		r = PowerBarColor and PowerBarColor["MANA"].r or 0.00;
+		g = PowerBarColor and PowerBarColor["MANA"].g or 0.30;
+		b = PowerBarColor and PowerBarColor["MANA"].b or 1.00;
+	};
+	[LS_EVENT_RAGE] = -- 16
+	{
+		r = PowerBarColor and PowerBarColor["RAGE"].r or 1.00;
+		g = PowerBarColor and PowerBarColor["RAGE"].g or 0.00;
+		b = PowerBarColor and PowerBarColor["RAGE"].b or 0.00;
+	};
+	[LS_EVENT_FOCUS] = -- 19
+	{
+		r = PowerBarColor and PowerBarColor["ENERGY"].r or 0.90;
+		g = PowerBarColor and PowerBarColor["ENERGY"].g or 0.45;
+		b = PowerBarColor and PowerBarColor["ENERGY"].b or 0.10;
+	};
+	[LS_EVENT_ENERGY] = -- 15
+	{
+		r = PowerBarColor and PowerBarColor["ENERGY"].r or 1.00;
+		g = PowerBarColor and PowerBarColor["ENERGY"].g or 1.00;
+		b = PowerBarColor and PowerBarColor["ENERGY"].b or 0.00;
+	};
+	[LS_EVENT_COMBO] = -- 12
+	{
+		r = PowerBarColor and PowerBarColor["COMBO_POINTS"].r or 1.00;
+		g = PowerBarColor and PowerBarColor["COMBO_POINTS"].g or 0.00;
+		b = PowerBarColor and PowerBarColor["COMBO_POINTS"].b or 0.00;
+	};
+	[LS_EVENT_RUNIC] = -- 17
+	{
+		r = PowerBarColor and PowerBarColor["RUNIC_POWER"].r or 0.00;
+		g = PowerBarColor and PowerBarColor["RUNIC_POWER"].g or 0.80;
+		b = PowerBarColor and PowerBarColor["RUNIC_POWER"].b or 1.00;
+	};
+	[LS_EVENT_FURY] =  -- 47
+	{
+		r = PowerBarColor and PowerBarColor["FURY"].r or 0.788;
+		g = PowerBarColor and PowerBarColor["FURY"].g or 0.259;
+		b = PowerBarColor and PowerBarColor["FURY"].b or 0.992;
+	};
+	[LS_EVENT_LUNAR_POWER] =  -- 48
+	{
+		r = PowerBarColor and PowerBarColor["LUNAR_POWER"].r or 0.30;
+		g = PowerBarColor and PowerBarColor["LUNAR_POWER"].g or 0.52;
+		b = PowerBarColor and PowerBarColor["LUNAR_POWER"].b or 0.90;
+	};
+	[LS_EVENT_INSANITY] =  -- 49
+	{
+		r = PowerBarColor and PowerBarColor["INSANITY"].r or 0.40;
+		g = PowerBarColor and PowerBarColor["INSANITY"].g or 0.00;
+		b = PowerBarColor and PowerBarColor["INSANITY"].b or 0.80;
+	};
+	[LS_EVENT_MAELSTROM] =  -- 50
+	{
+		r = PowerBarColor and PowerBarColor["MAELSTROM"].r or 0.00;
+		g = PowerBarColor and PowerBarColor["MAELSTROM"].g or 0.50;
+		b = PowerBarColor and PowerBarColor["MAELSTROM"].b or 1.00;
+	};
+};
+
+function Lunar.Sphere:GetColorGaugeDefaultSetting(gaugeType, r, g, b)
+	local colorGaugeSetting;
+	local customColors = false;
+	local defaultColor = Lunar.Sphere.defaultGaugeColorValues[gaugeType];
+
+	if (r or g or b) then
+		customColors = true;
+	end
+	if (not defaultColor) then
+		defaultColor = Lunar.Sphere.defaultGaugeColorValues[LS_EVENT_FIVE];
+	end
+
+	colorGaugeSetting = 
+	{
+		defaultColor.r, 
+		defaultColor.g, 
+		defaultColor.b, 
+		customColors, 
+		r or defaultColor.r, 
+		g or defaultColor.g, 
+		b or defaultColor.b
+	};
+
+	return colorGaugeSetting;
+end
+
+Lunar.Sphere.defaultSettings = 
+{
 	versionID = Lunar.Sphere.version;
 	firstRun = true;
 	showInner = true;
@@ -80,6 +230,7 @@ LunarSphereSettings = {
 	innerMarkDark = false;
 	innerGaugeAngle = 90;
 	innerGaugeDirection = -1;
+	showInnerGaugeShine = false;
 	outerGaugeColor = {0.0, 1.0, 0.0};
 	outerGaugeType = LS_EVENT_HEALTH;
 	outerGaugeTypeID = nil;
@@ -88,6 +239,7 @@ LunarSphereSettings = {
 	outerMarkDark = false;
 	outerGaugeAngle = 90;
 	outerGaugeDirection = -1;
+	showOuterGaugeShine = false;
 	sphereTextType = LS_EVENT_NONE;
 	sphereTextTypeID = nil;
 	sphereTextEnd = "%";
@@ -95,22 +247,27 @@ LunarSphereSettings = {
 	alwaysShowPet = true;
 	debugTuesday = true;
 	sphereScale = 1.0;
-	gaugeColor = {
-		[LS_EVENT_MANA]   = {0.0, 0.3, 1.0, false, 0.0, 0.3, 1.0};
-		[LS_EVENT_FIVE]   = {1.0, 1.0, 1.0, false, 1.0, 1.0, 1.0};
-		[LS_EVENT_HEALTH] = {0.0, 1.0, 0.0, false, 0.0, 1.0, 0.0};
-		[LS_EVENT_POWER] = {0.5, 0.0, 0.7, false, 0.5, 0.0, 0.7}; --1.3 Croq Add
-		[LS_EVENT_EXP]    = {0.7, 0.0, 0.7, false, 0.7, 0.0, 0.7};
-		[LS_EVENT_REP]    = {0.0, 0.7, 0.7, false, 0.0, 0.7, 0.7};
-		[LS_EVENT_RAGE]   = {1.0, 0.0, 0.0, false, 1.0, 0.0, 0.0};
-		[LS_EVENT_COMBO]  = {1.0, 0.0, 0.0, false, 1.0, 0.0, 0.0};
-		[LS_EVENT_ENERGY] = {1.0, 1.0, 0.0, false, 1.0, 1.0, 0.0};
-		[LS_EVENT_FOCUS] = {0.9, 0.45, 0.10, false, 0.9, 0.45, 0.10};
-		[LS_EVENT_EXTRA_POWER] = {0.85, 0.0, 0.85, false, 0.85, 0.0, 0.85};
-		[LS_EVENT_RUNIC] = {0.0, 0.8, 1.0, false, 0.0, 0.8, 1.0};
-		[LS_EVENT_P_EXP]  = {0.6, 0.0, 0.6, false, 0.6, 0.0, 0.6};
-		[LS_EVENT_T_HEALTH] = {0.0, 1.0, 0.0, false, 0.0, 1.0, 0.0};
-		[LS_EVENT_T_POWER] = {0.5, 0.0, 0.7, false, 0.5, 0.0, 0.7};
+	gaugeColor = 
+	{
+		[LS_EVENT_FIVE] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_FIVE);
+		[LS_EVENT_HEALTH] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_HEALTH);
+		[LS_EVENT_POWER] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_POWER);
+		[LS_EVENT_EXP] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_EXP);
+		[LS_EVENT_REP] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_REP);
+		[LS_EVENT_EXTRA_POWER] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_EXTRA_POWER);
+		[LS_EVENT_P_EXP] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_P_EXP);
+		[LS_EVENT_T_HEALTH] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_T_HEALTH);
+		[LS_EVENT_T_POWER] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_T_POWER);
+		[LS_EVENT_MANA] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_MANA);
+		[LS_EVENT_RAGE] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_RAGE);
+		[LS_EVENT_FOCUS] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_FOCUS);
+		[LS_EVENT_ENERGY] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_ENERGY);
+		[LS_EVENT_COMBO] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_COMBO);
+		[LS_EVENT_RUNIC] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_RUNIC);
+		[LS_EVENT_FURY] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_FURY);
+		[LS_EVENT_LUNAR_POWER] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_LUNAR_POWER);
+		[LS_EVENT_INSANITY] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_INSANITY);
+		[LS_EVENT_MAELSTROM] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_MAELSTROM);
 	};
 	buttonData = {};
 	showAssignedCounts = false;
@@ -123,10 +280,11 @@ LunarSphereSettings = {
 	vividMana = {0.0, 0.0, 1.0};
 	vividManaRange = {0.6, 0.2, 1.0};
 	vividRange = {1.0, 0.0, 0.0};
+	vividButtons = false;
 	gaugeFill = 4;
 	gaugeBorder = 3;
 	gaugeBorderColor = {1,1,1};
-	showSphereEditGlow = 1;
+	showSphereEditGlow = true;
 	reagentList = {};
 	timeOffset = 0;
 	keepArmor = true;
@@ -136,14 +294,16 @@ LunarSphereSettings = {
 	sphereSkin = 1;
 	menuButtonDistance = 58;
 	subMenuButtonDistance = 4;
-	buttonDistance = 6;
+	buttonDistance = 8;
 	buttonOffset = 0;
 	buttonSpacing = 100;
+	showButtonShine = false;
 	tooltipType = 1;
 	yellowTooltipType = 0;
 	greenTooltipType = 0;
 	tooltipBackground = {0.05, 0.05, 0.10, 0.75};
 	tooltipBorder = {1,1,1,1};
+	skinAllTooltips = false;
 	anchorModeLS = 0;
 	anchorMode = 0;
 	anchorCornerLS = 0;
@@ -158,6 +318,9 @@ LunarSphereSettings = {
 	xOfs = 0;
 	yOfs = 0;
 };
+
+-- Create our settings table. Will be overwritten if the user has saved variables.
+LunarSphereSettings = Lunar.Sphere.defaultSettings;
 
 LunarSphereGlobal = {};
 LunarSphereGlobal.artDatabase = {};
@@ -243,6 +406,10 @@ local dataTracking = {
 		[LS_EVENT_T_HEALTH] = "UNIT_HEALTH",
 --		[LS_EVENT_T_POWER] = "UNIT_POWER", --"UNIT_MANA",
 		[LS_EVENT_POWER] = "UNIT_POWER_UPDATE", --Croq Added in 1.30
+		[LS_EVENT_FURY] = "UNIT_POWER_UPDATE",
+		[LS_EVENT_LUNAR_POWER] = "UNIT_POWER_UPDATE",
+		[LS_EVENT_INSANITY] = "UNIT_POWER_UPDATE",
+		[LS_EVENT_MAELSTROM] = "UNIT_POWER_UPDATE",
 	};
 
 	-- Table for the names of the different powers
@@ -255,23 +422,25 @@ local dataTracking = {
 		[5] = LS_EVENT_RUNIC, -- 17
 		[6] = LS_EVENT_RUNIC, -- 17
 		[7] = LS_EVENT_MANA, --Croq Added in 1.30
-		[8] = LS_EVENT_RAGE, --Croq Added in 1.30
+		[8] = LS_EVENT_LUNAR_POWER, --Croq Added in 1.30
 		[9] = LS_EVENT_FOCUS, --Croq Added in 1.30
 		[10] = LS_EVENT_ENERGY, --Croq Added in 1.30
-		[11] = LS_EVENT_ENERGY, --Croq Added in 1.30 -- 1.3 Croq Add Had to add for Mealstrome (shaman)
+		[11] = LS_EVENT_MAELSTROM, --Croq Added in 1.30 -- 1.3 Croq Add Had to add for Mealstrome (shaman)
 		[12] = LS_EVENT_ENERGY, --Croq Added in 1.30
-		[13] = LS_EVENT_ENERGY, --Croq Added in 1.30
+		[13] = LS_EVENT_INSANITY, --Croq Added in 1.30
 		[14] = LS_EVENT_ENERGY, --Croq Added in 1.30
 		[15] = LS_EVENT_ENERGY, --Croq Added in 1.30
 		[16] = LS_EVENT_ENERGY, --Croq Added in 1.30
-		[17] = LS_EVENT_ENERGY, --Croq Added in 1.30 - for demon hunters
+		[17] = LS_EVENT_FURY, --Croq Added in 1.30 - for demon hunters
 	};
 
 	extraPowerType = {
-		["DEATHKNIGHT"] = 0,
-		["DRUID"] = 8,
+		["DEATHKNIGHT"] = 5,
+		["DEMONHUNTER"] = 0,
+		["DRUID"] = 0,
 		["HUNTER"] = 0,
-		["MAGE"] = 0,
+		["MAGE"] = 16,
+		["MONK"] = 12,
 		["PALADIN"] = 9,
 		["PRIEST"] = 0,
 		["ROGUE"] = -1,
@@ -478,6 +647,7 @@ function Lunar.Sphere:Initialize()
 --	sphereData.background:RegisterEvent("ZONE_CHANGED");
 	sphereData.background:RegisterEvent("ZONE_CHANGED_NEW_AREA");
 	sphereData.background:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED");
+	sphereData.background:RegisterEvent("UNIT_DISPLAYPOWER");
 
 	-- Item/Spell/Macro pick-up events
 	sphereData.background:RegisterEvent("ACTIONBAR_SHOWGRID");
@@ -776,7 +946,6 @@ function Lunar.Sphere:SetSphereTexture(textureType)
 			sphereData.sphereTexture2:Show();
 		-- Class icon spheres
 		elseif ((textureType > Lunar.includedSpheres + 2) and (textureType <= Lunar.includedSpheres + LUNAR_EXTRA_SPHERE_ICON_COUNT)) then
-
 			sphereData.sphereTexture:SetNormalTexture(LUNAR_ART_PATH .. "sphereClass_" .. (textureType - Lunar.includedSpheres - 2));
 		-- Custom import art images
 		else
@@ -953,7 +1122,6 @@ function Lunar.Sphere:SetSphereTextColor(r, g, b)
 end
 
 function Lunar.Sphere:ResetDefaultColor(gaugeType)
-
 	if (gaugeType == LS_EVENT_POWER) then
 		gaugeType = dataTracking.powerName[dataTracking.powerType]
 	end
@@ -1783,7 +1951,6 @@ function Lunar.Sphere:UpdateSkin(skinType, filename)
 end
 
 function Lunar.Sphere:UpdateGaugeColors()
-
 	local loopCount, colorIndex, checkType;
 	local gaugeName = "outer";
 	local gaugeNameUpper = "Outer";
@@ -1799,6 +1966,7 @@ function Lunar.Sphere:UpdateGaugeColors()
 		if (LunarSphereSettings.gaugeColor[checkType][4] == true) then
 			colorIndex = 4;
 		end
+		
 		LunarSphereSettings[gaugeName .. "GaugeColor"][1] = LunarSphereSettings.gaugeColor[checkType][colorIndex + 1];
 		LunarSphereSettings[gaugeName .. "GaugeColor"][2] = LunarSphereSettings.gaugeColor[checkType][colorIndex + 2];
 		LunarSphereSettings[gaugeName .. "GaugeColor"][3] = LunarSphereSettings.gaugeColor[checkType][colorIndex + 3];
@@ -2308,6 +2476,17 @@ function Lunar.Sphere.Events(self, event, arg1, arg2)
 		end
 	end
 
+	if (event == "UNIT_DISPLAYPOWER") then
+
+		dataTracking.powerType = UnitPowerType("player");
+		Lunar.Sphere:SetOuterGaugeType(LunarSphereSettings.outerGaugeType);
+		Lunar.Sphere:SetInnerGaugeType(LunarSphereSettings.innerGaugeType);
+		Lunar.Sphere:SetSphereTextType(LunarSphereSettings.sphereTextType);
+
+		return;
+	end
+	
+
 --[[
 	local gaugeType = "sphere";
 
@@ -2355,7 +2534,6 @@ function Lunar.Sphere:RunPlayerLoginGaugeSetup()
 end
 
 function Lunar.Sphere.Updates(self, elapsed)
-
 	if (dataTracking.loadedPlayer == false) then
 		if (HasPetSpells()) then
 			local minXP, maxXP = GetPetExperience();
