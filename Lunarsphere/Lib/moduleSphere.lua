@@ -1594,7 +1594,6 @@ function Lunar.Sphere:UpdateGauge(gaugeType)
 	elseif (checkType == LS_EVENT_EXTRA_POWER) then
 		local _, playerClass = UnitClass("player");
 		local powerToTrack = dataTracking.extraPowerType[playerClass];
-		print("Updating Extra Power", powerToTrack);
 		-- Combo points
 		if (powerToTrack == -1) then
 			spherePercent =	GetComboPoints("player") / 5 * 100;
