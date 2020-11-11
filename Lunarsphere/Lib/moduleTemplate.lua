@@ -5711,6 +5711,56 @@ Lunar.Template.template[12] =
 	},
 };
 
+Lunar.Template.template[13] =
+{
+	["listData"] = Lunar.Locale["TEMPLATE_MONK"] .. ":::MONK:::10101:::",
+	["sphere"] = defaultSphereTemplateSettings,
+	["skin"] = mergeSettings({}, defaultSkinTemplateSettings,
+	{
+		["showSphereShine"] = false,
+		["sphereColor"] = Lunar.Sphere.defaultSettings.sphereColor,
+		["sphereSkin"] = 23,
+	}),
+	["buttonData"] = 
+	{
+		nil, -- [1]
+		nil, -- [2]
+		nil, -- [3]
+		{
+			["buttonTypeData"] = "021011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionData"] = "||001||iHoney Bread||002||iRefreshing Spring Water||003|| ||00X|| ",
+			["showCount"] = true,
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_Food_11||002||Interface\\Icons\\INV_Drink_07||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [4]
+		{
+			["buttonTypeData"] = "031041000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Potion_131||002|| ||003|| ||00X|| ",
+			["actionData"] = "||001||i ||002||i ||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [5]
+		{
+			["buttonTypeData"] = "080001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionData"] = "||001||i ||002||iitem:6948||003|| ||00X|| ",
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_Foot_Centaur||002||Interface\\Icons\\INV_Misc_Rune_01||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [6]
+		{
+			["buttonTypeData"] = "131000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionData"] = "||001||t/use 14||002|| ||003|| ||00X|| ",
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_QuestionMark||002|| ||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [7]
+		{
+			["buttonTypeData"] = "130000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_QuestionMark||002|| ||003|| ||00X|| ",
+			["actionData"] = "||001||t/use 13||002|| ||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [8]
+		["mainButtonCount"] = 10,
+	},
+};
+
 function Lunar.Template:LoadTemplateData()
 	ChatFrame1:Clear();
 	local data = LunarSphereSettings.loadTemplate;
