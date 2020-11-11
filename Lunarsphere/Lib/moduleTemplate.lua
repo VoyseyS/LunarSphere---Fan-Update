@@ -97,45 +97,6 @@ local defaultSkinTemplateSettings =
 	["showButtonShine"] = Lunar.Sphere.defaultSettings.showButtonShine,
 };
 
-local defaultButtonTemplateSettings =
-{
-	nil, -- [1]
-	nil, -- [2]
-	nil, -- [3]
-	{
-		["buttonTypeData"] = "021011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-		["actionData"] = "||001||iHoney Bread||002||iRefreshing Spring Water||003|| ||00X|| ",
-		["showCount"] = true,
-		["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_Food_11||002||Interface\\Icons\\INV_Drink_07||003|| ||00X|| ",
-		["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
-	}, -- [4]
-	{
-		["buttonTypeData"] = "031041000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-		["actionTexture"] = "||001||Interface\\Icons\\INV_Potion_131||002|| ||003|| ||00X|| ",
-		["actionData"] = "||001||i ||002||i ||003|| ||00X|| ",
-		["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
-	}, -- [5]
-	{
-		["buttonTypeData"] = "080001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-		["actionData"] = "||001||i ||002||iitem:6948||003|| ||00X|| ",
-		["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_Foot_Centaur||002||Interface\\Icons\\INV_Misc_Rune_01||003|| ||00X|| ",
-		["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
-	}, -- [6]
-	{
-		["buttonTypeData"] = "131000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-		["actionData"] = "||001||t/use 14||002|| ||003|| ||00X|| ",
-		["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_QuestionMark||002|| ||003|| ||00X|| ",
-		["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
-	}, -- [7]
-	{
-		["buttonTypeData"] = "130000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-		["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_QuestionMark||002|| ||003|| ||00X|| ",
-		["actionData"] = "||001||t/use 13||002|| ||003|| ||00X|| ",
-		["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
-	}, -- [8]
-	["mainButtonCount"] = 10,
-};
-
 --[[
 Lunar.Locale = {
 	["TEMPLATE_DEATHKNIGHT"] = "LS Unholy Templar",
@@ -157,7 +118,44 @@ Lunar.Template.template[1] =
 	["listData"] = Lunar.Locale["TEMPLATE_DEFAULT"] .. ":::ANY:::10101:::",
 	["sphere"] = defaultSphereTemplateSettings,
 	["skin"] = defaultSkinTemplateSettings,
-	["buttonData"] = defaultButtonTemplateSettings,
+	["buttonData"] = 
+	{
+		nil, -- [1]
+		nil, -- [2]
+		nil, -- [3]
+		{
+			["buttonTypeData"] = "021011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionData"] = "||001||iHoney Bread||002||iRefreshing Spring Water||003|| ||00X|| ",
+			["showCount"] = true,
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_Food_11||002||Interface\\Icons\\INV_Drink_07||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [4]
+		{
+			["buttonTypeData"] = "031041000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Potion_131||002|| ||003|| ||00X|| ",
+			["actionData"] = "||001||i ||002||i ||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [5]
+		{
+			["buttonTypeData"] = "080001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionData"] = "||001||i ||002||iitem:6948||003|| ||00X|| ",
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_Foot_Centaur||002||Interface\\Icons\\INV_Misc_Rune_01||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [6]
+		{
+			["buttonTypeData"] = "131000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionData"] = "||001||t/use 14||002|| ||003|| ||00X|| ",
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_QuestionMark||002|| ||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [7]
+		{
+			["buttonTypeData"] = "130000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_QuestionMark||002|| ||003|| ||00X|| ",
+			["actionData"] = "||001||t/use 13||002|| ||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [8]
+		["mainButtonCount"] = 10,
+	},
 };
 
 Lunar.Template.template[2] = 
@@ -5663,9 +5661,58 @@ Lunar.Template.template[11] =
 	},
 };
 
+Lunar.Template.template[12] =
+{
+	["listData"] = Lunar.Locale["TEMPLATE_DEMONHUNTER"] .. ":::DEMONHUNTER:::10101:::",
+	["sphere"] = defaultSphereTemplateSettings,
+	["skin"] = mergeSettings({}, defaultSkinTemplateSettings,
+	{
+		["showSphereShine"] = false,
+		["sphereColor"] = Lunar.Sphere.defaultSettings.sphereColor,
+		["sphereSkin"] = 24,
+	}),
+	["buttonData"] = 
+	{
+		nil, -- [1]
+		nil, -- [2]
+		nil, -- [3]
+		{
+			["buttonTypeData"] = "021011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionData"] = "||001||iHoney Bread||002||iRefreshing Spring Water||003|| ||00X|| ",
+			["showCount"] = true,
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_Food_11||002||Interface\\Icons\\INV_Drink_07||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [4]
+		{
+			["buttonTypeData"] = "031041000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Potion_131||002|| ||003|| ||00X|| ",
+			["actionData"] = "||001||i ||002||i ||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [5]
+		{
+			["buttonTypeData"] = "080001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionData"] = "||001||i ||002||iitem:6948||003|| ||00X|| ",
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_Foot_Centaur||002||Interface\\Icons\\INV_Misc_Rune_01||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [6]
+		{
+			["buttonTypeData"] = "131000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionData"] = "||001||t/use 14||002|| ||003|| ||00X|| ",
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_QuestionMark||002|| ||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [7]
+		{
+			["buttonTypeData"] = "130000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			["actionTexture"] = "||001||Interface\\Icons\\INV_Misc_QuestionMark||002|| ||003|| ||00X|| ",
+			["actionData"] = "||001||t/use 13||002|| ||003|| ||00X|| ",
+			["buttonSettings"] = "1110000111000011100001110000111000011100001110000111000011100001110000111000011100001110000",
+		}, -- [8]
+		["mainButtonCount"] = 10,
+	},
+};
+
 function Lunar.Template:LoadTemplateData()
 	ChatFrame1:Clear();
-	print("Loading Template");
 	local data = LunarSphereSettings.loadTemplate;
 	local db = LunarSphereSettings;
 	local searchDB = Lunar.Template;
@@ -5678,10 +5725,7 @@ function Lunar.Template:LoadTemplateData()
 	local oldXOfs = LunarSphereSettings.xOfs;
 	local oldYOfs = LunarSphereSettings.yOfs;
 
-	print("Template Name", templateName);
-	print("Template Class", templateClass);
-
-	for j = 1, 3 do 
+	for j = 1, 3 do
 		if (searchDB) and (searchDB.template) then
 			for i = 1, table.getn(searchDB.template) do 
 				if (string.find(searchDB.template[i].listData, templateSearch, 0, true)) then -- == data) then

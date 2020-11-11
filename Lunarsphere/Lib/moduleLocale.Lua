@@ -434,6 +434,7 @@ if (locale == "enUS") or (force_enUS == true) then
 
 		["TEMPLATE_DEATHKNIGHT"] = "LS Unholy Templar",
 		["TEMPLATE_DRUID"] = "LS Shapeshifter",
+		["TEMPLATE_DEMONHUNTER"] = "LS Demon Hunter",
 		["TEMPLATE_HUNTER"] = "LS Beastmaster",
 		["TEMPLATE_MAGE"] = "LS Elementialist",
 		["TEMPLATE_PALADIN"] = "LS Crusader",
@@ -998,6 +999,7 @@ elseif (locale == "frFR") then
 
 		["TEMPLATE_DEATHKNIGHT"] = "LS Unholy Templar",
 		["TEMPLATE_DRUID"] = "LS Shapeshifter",
+		["TEMPLATE_DEMONHUNTER"] = "LS Demon Hunter",
 		["TEMPLATE_HUNTER"] = "LS Beastmaster",
 		["TEMPLATE_MAGE"] = "LS Elementialist",
 		["TEMPLATE_PALADIN"] = "LS Crusader",
@@ -2130,6 +2132,7 @@ elseif (locale == "ruRU") then
 
 		["TEMPLATE_DEATHKNIGHT"] = "LS Unholy Templar",
 		["TEMPLATE_DRUID"] = "LS Shapeshifter",
+		["TEMPLATE_DEMONHUNTER"] = "LS Demon Hunter",
 		["TEMPLATE_HUNTER"] = "LS Beastmaster",
 		["TEMPLATE_MAGE"] = "LS Elementialist",
 		["TEMPLATE_PALADIN"] = "LS Crusader",
@@ -2697,6 +2700,7 @@ elseif (locale == "esES") then
 
 		["TEMPLATE_DEATHKNIGHT"] = "LS Unholy Templar",
 		["TEMPLATE_DRUID"] = "LS Shapeshifter",
+		["TEMPLATE_DEMONHUNTER"] = "LS Demon Hunter",
 		["TEMPLATE_HUNTER"] = "LS Beastmaster",
 		["TEMPLATE_MAGE"] = "LS Elementialist",
 		["TEMPLATE_PALADIN"] = "LS Crusader",
@@ -3264,6 +3268,7 @@ elseif (locale == "esMX") then
 
 		["TEMPLATE_DEATHKNIGHT"] = "LS Unholy Templar",
 		["TEMPLATE_DRUID"] = "LS Shapeshifter",
+		["TEMPLATE_DEMONHUNTER"] = "LS Demon Hunter",
 		["TEMPLATE_HUNTER"] = "LS Beastmaster",
 		["TEMPLATE_MAGE"] = "LS Elementialist",
 		["TEMPLATE_PALADIN"] = "LS Crusader",
@@ -3830,6 +3835,7 @@ else
 
 		["TEMPLATE_DEATHKNIGHT"] = "LS Unholy Templar",
 		["TEMPLATE_DRUID"] = "LS Shapeshifter",
+		["TEMPLATE_DEMONHUNTER"] = "LS Demon Hunter",
 		["TEMPLATE_HUNTER"] = "LS Beastmaster",
 		["TEMPLATE_MAGE"] = "LS Elementialist",
 		["TEMPLATE_PALADIN"] = "LS Crusader",
