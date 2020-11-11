@@ -1502,8 +1502,8 @@ function LunarSphere_BackwardsCompatibility()
 	end
 
 	if (LunarSphereSettings.versionID < 1.5) then
-		-- LunarSphereSettings.versionID = 1.5;
-		-- LunarSphereSettings.fooled = nil;
+		LunarSphereSettings.versionID = 1.5;
+		LunarSphereSettings.fooled = nil;
 		LunarSphereSettings.gaugeColor[LS_EVENT_FURY] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_FURY);
 		LunarSphereSettings.gaugeColor[LS_EVENT_LUNAR_POWER] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_LUNAR_POWER);
 		LunarSphereSettings.gaugeColor[LS_EVENT_INSANITY] = Lunar.Sphere:GetColorGaugeDefaultSetting(LS_EVENT_INSANITY);
