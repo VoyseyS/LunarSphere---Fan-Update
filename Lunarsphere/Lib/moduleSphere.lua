@@ -616,6 +616,7 @@ function Lunar.Sphere:Initialize()
 --	sphereData.background:RegisterEvent("ZONE_CHANGED");
 	sphereData.background:RegisterEvent("ZONE_CHANGED_NEW_AREA");
 	sphereData.background:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED");
+	sphereData.background:RegisterEvent("UNIT_DISPLAYPOWER");
 
 	-- Item/Spell/Macro pick-up events
 	sphereData.background:RegisterEvent("ACTIONBAR_SHOWGRID");
@@ -2443,6 +2444,17 @@ function Lunar.Sphere.Events(self, event, arg1, arg2)
 			Lunar.templateSwapTimer = 0;
 		end
 	end
+
+	if (event == "UNIT_DISPLAYPOWER") then
+
+		dataTracking.powerType = UnitPowerType("player");
+		Lunar.Sphere:SetOuterGaugeType(LunarSphereSettings.outerGaugeType);
+		Lunar.Sphere:SetInnerGaugeType(LunarSphereSettings.innerGaugeType);
+		Lunar.Sphere:SetSphereTextType(LunarSphereSettings.sphereTextType);
+
+		return;
+	end
+	
 
 --[[
 	local gaugeType = "sphere";
