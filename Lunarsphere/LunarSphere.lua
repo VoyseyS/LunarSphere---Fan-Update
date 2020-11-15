@@ -45,6 +45,9 @@
 --	Fix Author		: Shaun Voysey (UK)
 --	Email			: sv.public@hotmail.com
 --
+--	v1.50 Fixed		: 22nd September, 2020	- Weeks Doing this, and mainly for the Backdrops.  <Shudder>
+--
+--
 --	v1.20 Fixed		: 21st June, 2015	- 3 Days Banging my Head in try to fix this.  Most seemed ok, bu Manastone no longer exists
 --				  and Healthstone now down to one.  And why is it always the Mount system thats the pain...
 --
@@ -93,6 +96,7 @@
 LUNARSPHERE_CHAT = "|cFF82B8E1Lunar|cFFA1CAE8Sph|cFFC7DFF1ere: |r";
 LUNAR_ICON_PREFIX = "Interface\\Icons\\"
 LUNAR_CURRENT_VERSION = 1.50;
+
 
 -- Define built-in texture counts
 Lunar.includedButtons = 38;
@@ -447,7 +451,7 @@ function LunarSphere_VariablesLoaded()
 
 	-- Restore the original saved startup messages
 	if (not (versionOK)) or (Lunar.startupMessage) then
-		if (LunarSphereSettings.startupMessage) then
+		if (LunarSphereSettings.startupMessage and Lunar.startupMessage) then
 			_G["LSSettingsStartUpMessage"]:SetText(Lunar.startupMessage);
 		end
 		_G["LSSettingsshowStartupMessage"]:SetChecked(Lunar.showStartupMessage);
@@ -918,6 +922,7 @@ function LunarSphere_BackwardsCompatibility()
 			if (not LunarSphereGlobal.searchData) then
 				LunarSphereGlobal.searchData = {};
 			end
+
 			LunarSphereGlobal.searchData.energyDrink = "Restore Energy";
 			LunarSphereGlobal.searchData.drink = "Drink";
 			LunarSphereGlobal.searchData.bandage = "First Aid";
@@ -1743,6 +1748,7 @@ function LunarSphere_cow()
 			height = math.ceil(GetScreenHeight() / 10);
 
 			cowFrame = Lunar.API:CreateFrame("Frame", "cowFrame", UIParent, 100, 100, nil, nil, 0);
+
 			cowFrame:SetPoint("Topleft");
 			for y = 1, 10 do 
 				for x = 1, 16 do 

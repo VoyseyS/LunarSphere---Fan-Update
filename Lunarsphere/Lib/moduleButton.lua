@@ -250,6 +250,7 @@ function Lunar.Button:Initialize()
 	end
 
 	sphereMainHeader = CreateFrame("Frame", "LunarSphereMainButtonHeader", UIParent, "SecureHandlerStateTemplate")
+
 	sphereMainHeader:SetWidth(1);
 	sphereMainHeader:SetHeight(1);
 	sphereMainHeader:SetPoint("Topleft");
@@ -271,6 +272,7 @@ function Lunar.Button:Initialize()
 	_G["LSmain"]:SetParent(sphereMainHeader);
 
 	sphereHeader = CreateFrame("Frame", "LunarSphereButtonHeader", UIParent, "SecureHandlerStateTemplate")
+
 	sphereHeader:SetWidth(64);
 	sphereHeader:SetHeight(64);
 	sphereHeader:SetPoint("Topleft");
@@ -693,12 +695,13 @@ menuHeader:SetAttribute('_onclick',
 	-- assigning a button a new action. This method prevents the player
 	-- from automatically using an item that they place on the button when
 	-- they are assigning it)
-	Lunar.Button.updateFrame = CreateFrame("Frame", "LunarButtonUpdates", UIParent);
+	Lunar.Button.updateFrame = CreateFrame("Frame", "LunarButtonUpdates", UIParent, BackdropTemplateMixin and "BackdropTemplate");
 
 	-- Create the update counter frame. This will run at all times and when a set amount
 	-- of time passes, it will run through all active buttons with a "canUpdate" flag
 	-- and run their OnUpdate code.
-	Lunar.Button.updateCounterFrame = CreateFrame("Frame", "LunarButtonUpdateTimer", UIParent);
+	Lunar.Button.updateCounterFrame = CreateFrame("Frame", "LunarButtonUpdateTimer", UIParent, BackdropTemplateMixin and "BackdropTemplate");
+
 	Lunar.Button.updateCounterFrame.elapsed = 0;
 	Lunar.Button.updateCounterFrame.elapsedCooldown = 0;
 	Lunar.Button.updateCounterFrame.updateHighLowItems = 0
@@ -1300,6 +1303,7 @@ function Lunar.Button:Create(name, parent, includeHeader)
 	else
 		button = CreateFrame("CheckButton", name, parent, "SecureActionButtonTemplate, ActionButtonTemplate"); --, SecureHandlerClickTemplate, SecureHandlerEnterLeaveTemplate, SecureHandlerShowHideTemplate, ActionButtonTemplate")
 	end
+
 	-- Make our new button accept mouse clicks
 	button:RegisterForClicks("LeftButtonUp", "MiddleButtonUp", "RightButtonUp", "Button4Up", "Button5Up");
 	button:RegisterForDrag("LeftButton", "MiddleButton", "RightButton", "Button4", "Button5")
@@ -2022,7 +2026,6 @@ function Lunar.Button:GetButtonData(buttonID, stance, clickType, useCached)
 end
 
 function Lunar.Button:SetButtonData(buttonID, stance, clickType, buttonType, actionType, actionName, buttonTexture, useCached)
-
 	-- Stop now if we have invalid data
 	if (not buttonID) or (not stance) or (not clickType) or (not buttonType) then
 		return nil;
@@ -3512,16 +3515,13 @@ function Lunar.Button:Assign(self, clickType, stance)
 		if (cursorType == "spell") then
 
 			-- Get the name of the spell and its texture
-			--_, spellID = GetSpellBookItemInfo(objectSpellID, objectData);
-			objectName = GetSpellBookItemName(objectID, objectData);
+			objectName, spellRank = GetSpellBookItemName(objectID, objectData);
 			objectTexture = GetSpellTexture(objectSpellID);
 			spellName = GetSpellInfo(objectSpellID);
+			spellRank = "(" .. spellRank .. ")";
 
 			-- Fix for Call Pet for hunters.
 			if (objectName ~= spellName) then
-				objectName = objectSpellID;
-			-- Fix for normal sheep polymorph
-			elseif (objectSpellID == 118) then
 				objectName = objectSpellID;
 			else
 --				if (objectName ~= nextSpellName) then
@@ -3535,10 +3535,10 @@ function Lunar.Button:Assign(self, clickType, stance)
 					end
 --				end
 				-- We don't want spell ranks on the first spell tab data or the professions tab ... these are generic
-				if (objectID <= (select(4, GetSpellTabInfo(1))) or objectSpellID >= (select(3, GetSpellTabInfo(5)))) then
+				if (objectID <= (select(4, GetSpellTabInfo(1))) or objectID >= (select(3, GetSpellTabInfo(5)))) then
 					spellRank = "";
 				end
-	--			objectName = objectName .. spellRank;
+				objectName = objectName .. spellRank;
 			end
 
 		elseif (cursorType == "companion") then
@@ -6873,7 +6873,7 @@ function Lunar.Button:TooltipOnShow()
 	if (LunarSphereSettings.skinTooltips == true) and ((Lunar.Button.tooltipCalled == true) or (LunarSphereSettings.skinAllTooltips == true)) then
 		if not (Lunar.Button.tooltipSkinned) then
 			Lunar.Button.tooltipSkinned = true;
-			GameTooltip:SetBackdrop(backdrop);
+--			GameTooltip:SetBackdrop(LS_backdropTemplate);
 			GameTooltip:SetBackdropBorderColor(unpack(LunarSphereSettings.tooltipBorder));
 			GameTooltip:SetBackdropColor(unpack(LunarSphereSettings.tooltipBackground));
 		end
@@ -6890,6 +6890,7 @@ function Lunar.Button:TooltipOnShow()
 			if (Lunar.Button.tooltipCalled ~= true) then
 				Lunar.Button.tooltipSetOwner = true;
 				GameTooltip:SetOwner(GameTooltip:GetOwner(), "ANCHOR_NONE");
+
 				local pos = LunarSphereSettings.anchorCorner +  1;
 				GameTooltip:ClearAllPoints();
 				GameTooltip:SetPoint(Lunar.Button.tooltipPos[9 - pos], _G["LSSettingsAnchor"], Lunar.Button.tooltipPos[pos]);

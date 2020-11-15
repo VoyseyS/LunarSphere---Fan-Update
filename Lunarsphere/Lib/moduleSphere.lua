@@ -301,7 +301,8 @@ function Lunar.Sphere:Initialize()
 
 --	sphereData.main = Lunar.API:CreateFrame("Frame", "LSmain", mainAnchor, 64, 64, "", true, 0)
 
-	sphereData.main = CreateFrame("Button", "LSmain", UIParent, "SecureActionButtonTemplate");
+	sphereData.main = CreateFrame("Button", "LSmain", UIParent, "SecureActionButtonTemplate, BackdropTemplate");
+
 	sphereData.main:SetWidth(64);
 	sphereData.main:SetHeight(64);
 	sphereData.main:EnableMouse(true);
@@ -344,7 +345,8 @@ function Lunar.Sphere:Initialize()
 	sphereData.gaugeOuterBorder = Lunar.API:CreateFrame("Button", "LSgaugeOuterBorder", sphereData.main, 44, 44, "$addon\\art\\gaugeBorder_1", false, 0)
 	sphereData.gaugeInnerBorder = Lunar.API:CreateFrame("Button", "LSgaugeInnerBorder", sphereData.main, 30, 30, "$addon\\art\\gaugeBorder_1", false, 0)
 
-	sphereData.sphereTexture2 = CreateFrame("PlayerModel", "LSsphere2", sphereData.main);
+	sphereData.sphereTexture2 = CreateFrame("PlayerModel", "LSsphere2", sphereData.main, BackdropTemplateMixin and "BackdropTemplate");
+
 	sphereData.sphereTexture2:SetWidth(64);
 	sphereData.sphereTexture2:SetHeight(64);
 	sphereData.sphereTexture2:SetScript("OnUpdate", function (self) self:SetCamera(0) end);
@@ -2245,7 +2247,7 @@ function Lunar.Sphere.Events(self, event, arg1, arg2)
 
 			-- Grab the type of gossip we have. If it is a banker, battlemaster, taxi, or vendor,
 			-- we'll skip the gossip. Anything else, we'll leave be, since we might want to select a different option
-			local _, gossipType, _, moreGossip = GetGossipOptions()
+			local _, gossipType, _, moreGossip = C_GossipInfo.GetGossipOptions();
 
 			if ((((gossipType == "banker") or (gossipType == "battlemaster") or (gossipType == "taxi") or (gossipType == "vendor")) and (not moreGossip)) or (gossipType == "trainer" and (not moreGossip))) then
 

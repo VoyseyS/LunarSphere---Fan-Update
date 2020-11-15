@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
 
-	<EditBox name="LunarEditBox" toplevel="true" hidden="false" virtual="true" autofocus="false">
+	<EditBox name="LunarEditBox" toplevel="true" hidden="false" virtual="true" autofocus="false" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="128" y="20"/>
 		</Size>
@@ -51,24 +51,13 @@
 		</Scripts>
 	</EditBox>
 
-	<Frame name="LunarWindow" movable="true" toplevel="true" enableMouse="true" hidden="true" parent="UIParent" virtual="true">
+	<Frame name="LunarWindow" movable="true" toplevel="true" enableMouse="true" hidden="true" parent="UIParent" virtual="true" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="352" y="32"/>
 		</Size>
 		<Anchors>
 			<Anchor point="CENTER" />
 		</Anchors>
-		<Backdrop bgFile="Interface\AddOns\LunarSphere\art\Window-Background" edgeFile="Interface\Addons\LunarSphere\art\Window-Border" tile="true">
-			<BackgroundInsets>
-				<AbsInset left="5" right="5" top="5" bottom="5"/>
-			</BackgroundInsets>
-			<TileSize>
-				<AbsValue val="128"/>
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="16"/>
-			</EdgeSize>
-		</Backdrop>
 		<Layers>
 			<Layer level="ARTWORK">
 				<FontString name="$parentTitle" inherits="GameFontNormal" justifyH="LEFT" text="">
@@ -100,7 +89,7 @@
 			</Layer>
 		</Layers>
 		<Frames>
-			<Frame name="$parentWindowContainer" toplevel="true" enableMouse="true">
+			<Frame name="$parentWindowContainer" toplevel="true" enableMouse="true" inherits="BackdropTemplate">
 				<Size>
 					<AbsDimension x="160" y="256"/>
 				</Size>
@@ -119,17 +108,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="Interface\AddOns\LunarSphere\art\Window-Background" edgeFile="Interface\Addons\LunarSphere\art\Window-TitleBorder" tile="true">
-					<BackgroundInsets>
-						<AbsInset left="5" right="5" top="5" bottom="5"/>
-					</BackgroundInsets>
-					<TileSize>
-						<AbsValue val="128"/>
-					</TileSize>
-					<EdgeSize>
-						<AbsValue val="16"/>
-					</EdgeSize>
-				</Backdrop>
 				<Layers>
 					<Layer level="OVERLAY">
 						<Texture file="Interface\AddOns\LunarSphere\art\Window-TitleEdge">
@@ -147,7 +125,15 @@
 					</Layer>
 				</Layers>
 				<Scripts>
-					<OnLoad>
+					<OnLoad inherit="prepend">
+						self:SetBackdrop({
+							bgFile = "Interface\\AddOns\\LunarSphere\\Art\\Window-Background",
+							edgeFile = "Interface\\Addons\\LunarSphere\\Art\\Window-TitleBorder",
+							tile = true,
+							insets = {left = 5, right = 5, top = 5, bottom = 5},
+							tileSize = 128,
+							edgeSize = 16
+						});
 						self:SetBackdropColor(0.2,0.2,0.2,1.0);
 					</OnLoad>
 				</Scripts>
@@ -159,7 +145,15 @@
 			</Button>
 		</Frames>
 		<Scripts>
-			<OnLoad>
+			<OnLoad  inherit="prepend">
+				self:SetBackdrop({
+					bgFile = "Interface\\AddOns\\LunarSphere\\Art\\Window-Background",
+					edgeFile = "Interface\\Addons\\LunarSphere\\Art\\Window-Border",
+					tile = true,
+					insets = {left = 5, right = 5, top = 5, bottom = 5},
+					tileSize = 128,
+					edgeSize = 16
+				});
 				self:SetBackdropColor(1.0,1.0,1.0,1);
 			</OnLoad>
 			<OnMouseDown>
@@ -173,46 +167,46 @@
 		</Scripts>
 	</Frame>
 
-	<Frame name="LunarContainer" toplevel="false" hidden="false" virtual="true">
+	<Frame name="LunarContainer" toplevel="false" hidden="false" virtual="true" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="128" y="128"/>
 		</Size>
 		<Anchors>
 			<Anchor point="TOPLEFT"/>
 		</Anchors>
-		<Backdrop edgeFile="Interface\Addons\LunarSphere\art\Window-Border">
-			<EdgeSize>
-				<AbsValue val="16"/>
-			</EdgeSize>
-		</Backdrop>
+		<Scripts>
+			<OnLoad inherit="prepend">
+				self:SetBackdrop({
+					edgeFile = "Interface\\Addons\\LunarSphere\\Art\\Window-Border",
+					edgeSize = 16
+				});
+			</OnLoad>
+		</Scripts>
 	</Frame>
 
-	<Frame name="LunarContainerSolid" toplevel="false" hidden="false" virtual="true">
+	<Frame name="LunarContainerSolid" toplevel="false" hidden="false" virtual="true" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="128" y="128"/>
 		</Size>
 		<Anchors>
 			<Anchor point="TOPLEFT"/>
 		</Anchors>
-		<Backdrop bgFile="Interface\AddOns\LunarSphere\art\Window-Background" edgeFile="Interface\Addons\LunarSphere\art\Window-Border" tile="true">
-			<BackgroundInsets>
-				<AbsInset left="5" right="5" top="5" bottom="5"/>
-			</BackgroundInsets>
-			<TileSize>
-				<AbsValue val="128"/>
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="16"/>
-			</EdgeSize>
-		</Backdrop>
 		<Scripts>
-			<OnLoad>
+			<OnLoad inherit="prepend">
+				self:SetBackdrop({
+					bgFile = "Interface\\AddOns\\LunarSphere\\Art\\Window-Background",
+					edgeFile = "Interface\\Addons\\LunarSphere\\Art\\Window-Border",
+					tile = true,
+					insets = {left = 5, right = 5, top = 5, bottom = 5},
+					tileSize = 128,
+					edgeSize = 16
+				});
 				self:SetBackdropColor(0.2,0.2,0.2,1.0);
 			</OnLoad>
 		</Scripts>
 	</Frame>
 
-	<Slider name="LunarHorizontalSlider" inherits="OptionsSliderTemplate" virtual="true">
+	<Slider name="LunarHorizontalSlider" inherits="OptionsSliderTemplate, BackdropTemplate" virtual="true">
 		<Layers>
 			<Layer level="ARTWORK">
 				<FontString name="$parentValue" inherits="GameFontNormal" justifyH="LEFT" text="">
@@ -228,7 +222,7 @@
 		</Layers>
 	</Slider>
 
-	<Slider name="LunarHorizontalSliderWithTextbox" inherits="OptionsSliderTemplate" virtual="true">
+	<Slider name="LunarHorizontalSliderWithTextbox" inherits="OptionsSliderTemplate, BackdropTemplate" virtual="true">
 		<Frames>
 			<EditBox name="$parentValue" inherits="LunarEditBox">
 				<Size>
@@ -245,29 +239,30 @@
 		</Frames>
 	</Slider>
 
-	<Slider name="LunarVerticalSlider" orientation="VERTICAL" minValue="0" maxValue="1" valueStep="1" defaultValue="0" virtual="true">
+	<Slider name="LunarVerticalSlider" orientation="VERTICAL" minValue="0" maxValue="1" valueStep="1" defaultValue="0" virtual="true" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="16" y="110"/>
 		</Size>
-		<Backdrop bgFile="Interface\Buttons\UI-SliderBar-Background" edgeFile="Interface\Buttons\UI-SliderBar-Border" tile="true">
-			<EdgeSize>
-				<AbsValue val="8"/>
-			</EdgeSize>
-			<TileSize>
-				<AbsValue val="8"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left="3" right="3" top="6" bottom="6"/>
-			</BackgroundInsets>
-		</Backdrop>
 		<ThumbTexture name = "$parentThumb" file="Interface\AddOns\LunarSphere\Art\verticalScroller.blp">
 			<Size>
 				<AbsDimension x="32" y="32"/>
 			</Size>
 		</ThumbTexture>
+		<Scripts>
+			<OnLoad inherit="prepend">
+				self:SetBackdrop({
+					bgFile = "Interface\\Buttons\\UI-SliderBar-Background",
+					edgeFile = "Interface\\Buttons\\UI-SliderBar-Border",
+					tile = true,
+					insets = {left = 3, right = 3, top = 6, bottom = 6},
+					tileSize = 8,
+					edgeSize = 8
+				});
+			</OnLoad>
+		</Scripts>
 	</Slider>
 
-	<Frame name="LunarCaption" virtual="true">
+	<Frame name="LunarCaption" virtual="true" inherits="BackdropTemplate">
 		<Layers>
 			<Layer level="ARTWORK">
 				<FontString name="$parentText" inherits="GameFontNormal" justifyH="LEFT" text="">
@@ -276,7 +271,7 @@
 		</Layers>
 	</Frame>
 
-	<Frame name="LunarCaptionSmall" virtual="true">
+	<Frame name="LunarCaptionSmall" virtual="true" inherits="BackdropTemplate">
 		<Layers>
 			<Layer level="ARTWORK">
 				<FontString name="$parentText" inherits="GameFontNormalSmall" justifyH="LEFT" text="">
@@ -285,7 +280,7 @@
 		</Layers>
 	</Frame>
 
-	<Button name="LunarColorSelector" virtual="true" enableMouse="true">
+	<Button name="LunarColorSelector" virtual="true" enableMouse="true" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="16" y="16"/>
 		</Size>
@@ -320,24 +315,13 @@
 		<HighlightTexture alphamode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
 	</Button>
 
-	<Frame name="LunarVerticalTab" toplevel="false" hidden="false" enableMouse="true" virtual="true">
+	<Frame name="LunarVerticalTab" toplevel="false" hidden="false" enableMouse="true" virtual="true" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="92" y="32"/>
 		</Size>
 		<Anchors>
 			<Anchor point="TOPLEFT"/>
 		</Anchors>
-		<Backdrop bgFile="Interface\AddOns\LunarSphere\art\Window-Background" edgeFile="Interface\Addons\LunarSphere\art\Window-Border" tile="true">
-			<BackgroundInsets>
-				<AbsInset left="5" right="5" top="5" bottom="5"/>
-			</BackgroundInsets>
-			<TileSize>
-				<AbsValue val="128"/>
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="16"/>
-			</EdgeSize>
-		</Backdrop>
 		<Layers>
 			<Layer level="ARTWORK">
 				<FontString name="$parentText" inherits="GameFontNormalSmall" justifyH="LEFT" text="">
@@ -357,7 +341,15 @@
 			</Layer>
 		</Layers>
 		<Scripts>
-			<OnLoad>
+			<OnLoad inherit="prepend">
+				self:SetBackdrop({
+					bgFile = "Interface\\AddOns\\LunarSphere\\Art\\Window-Background",
+					edgeFile = "Interface\\Addons\\LunarSphere\\Art\\Window-Border",
+					tile = true,
+					insets = {left = 5, right = 5, top = 5, bottom = 5},
+					tileSize = 1288,
+					edgeSize = 16
+				});
 				self:SetBackdropColor(0.9,0.9,0.9,1.0);
 			</OnLoad>
 			<OnMouseDown>
@@ -425,10 +417,10 @@
 		</Scripts>
 	</Frame>
 
-	<CheckButton name="LunarCheckButton" inherits="OptionsCheckButtonTemplate" virtual="true">
+	<CheckButton name="LunarCheckButton" inherits="OptionsCheckButtonTemplate, BackdropTemplate" virtual="true">
 	</CheckButton>
 
-	<Frame name="LunarDropDown" inherits="UIDropDownMenuTemplate" toplevel="false" hidden="false" enableMouse="true" virtual="true">
+	<Frame name="LunarDropDown" inherits="UIDropDownMenuTemplate, BackdropTemplate" toplevel="false" hidden="false" enableMouse="true" virtual="true">
 		<Anchors>
 			<Anchor point="TOPLEFT"/>
 		</Anchors>
@@ -446,5 +438,4 @@
 			</Layer>
 		</Layers>
 	</Frame>
-
 </Ui>
